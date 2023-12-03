@@ -1,0 +1,52 @@
+.yellow_highlighter_div {
+  background-color: #bf932c;
+  width: 0.2rem;
+  height: 2rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.card_outer {
+  height: 31rem;
+}
+.card_outer:hover .card_img {
+  filter: brightness(60%);
+}
+.card_outer:hover {
+  transform: scale(1.05, 1.05);
+  transition: 200ms;
+  cursor: pointer;
+}
+.search_load {
+  height: auto;
+  width: 36.8rem;
+}
+
+.horizontal_scrolling::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 280px) {
+  .search_load {
+    width: 11.8rem;
+  }
+}
+@media (max-width: 376px) {
+  .search_load {
+    width: 17.5rem;
+  }
+}
+@media (max-width: 576px) {
+  .search_load {
+    width: 30rem;
+  }
+}
+@media (max-width: 476px) {
+  .search_load {
+    width: 23rem;
+  }
+}
+@media (max-width: 415px) {
+  .search_load {
+    width: 20rem;
+  }
+}
