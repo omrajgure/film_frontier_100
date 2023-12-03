@@ -36,10 +36,7 @@ export const ImgSlider = ({ top_5_movies }) => {
         style={{ width: "100%" }}
         data-bs-ride="carousel"
       >
-        <div
-          className="carousel-inner"
-          style={{ marginLeft: "40%", width: "60%" }}
-        >
+        <div className="carousel-inner car_mob">
           {top_5_movies.map((movie, index) => (
             <div
               key={index}
