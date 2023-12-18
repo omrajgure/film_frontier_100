@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
+import "./Movies.css";
 export const Future_signin = ({ isclicked, set_isclicked }) => {
   let dis;
   dis = isclicked ? "flex" : "none";

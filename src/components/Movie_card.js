@@ -25,26 +25,28 @@ export const Movie_card = ({ top_10_movies }) => {
             <a
               target="blank"
               href={movie.imdb_link}
-              style={{ textDecoration: "none", margin: "1rem", padding: "0" }}
+              style={{ textDecoration: "none", margin: "0.4rem", padding: "0" }}
             >
-              <Grid item mb={2} position={"relative"}>
+              <Grid item mb={2} position={"relative"} sx={{ width: "15rem" }}>
                 <div
                   style={{
                     width: "2rem",
                     backgroundColor: "#BF932C",
                     position: "absolute",
-                    top: "0",
+                    top: "0.5rem",
                     left: "0",
                     color: "black",
                     opacity: "0.8",
                   }}
                 >
-                  <p style={{ padding: "5px" }}>{movie.rank}</p>
+                  <p style={{ padding: "5px", textAlign: "center" }}>
+                    {movie.rank}
+                  </p>
                 </div>
                 <Card
                   className="card_outer"
                   sx={{
-                    minWidth: 300,
+                    minWidth: 200,
                     backgroundColor: "#292828",
                     color: "white",
                   }}

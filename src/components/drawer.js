@@ -86,7 +86,7 @@ export const Drawer = ({
       top={"0"}
       left={"0"}
       sx={{
-        backgroundColor: "#222222",
+        backgroundColor: "#3D3D3D",
         color: "white",
         borderRight: "solid 2px lightgrey",
         borderBottom: "solid 2px lightgrey",
@@ -140,7 +140,13 @@ export const Drawer = ({
               }}
             />
           }
-          label="Movies"
+          label={
+            <div style={{ display: "flex", alignItems: "flex-start" }}>
+              <span>Movies</span>
+              <span style={{ color: "white", marginLeft: "2px" }}>*</span>
+            </div>
+          }
+          // label="Movies"
           labelPlacement="start"
         />
         <FormControlLabel
@@ -177,6 +183,7 @@ export const Drawer = ({
                   padding: "0",
                   margin: "0 1rem",
                 }}
+                disabled={!is_movies_checked && !is_series_checked}
               />
             }
             label="Romance"
@@ -193,6 +200,7 @@ export const Drawer = ({
                   padding: "0",
                   margin: "0 1rem",
                 }}
+                disabled={!is_movies_checked && !is_series_checked}
               />
             }
             label="Action"
@@ -209,6 +217,7 @@ export const Drawer = ({
                   padding: "0",
                   margin: "0 1rem",
                 }}
+                disabled={!is_movies_checked && !is_series_checked}
               />
             }
             label="Drama"
@@ -225,6 +234,7 @@ export const Drawer = ({
                   padding: "0",
                   margin: "0 1rem",
                 }}
+                disabled={!is_movies_checked && !is_series_checked}
               />
             }
             label="Comedy"
@@ -242,6 +252,7 @@ export const Drawer = ({
                   padding: "0",
                   margin: "0 1rem",
                 }}
+                disabled={!is_movies_checked && !is_series_checked}
               />
             }
             label="Crime"

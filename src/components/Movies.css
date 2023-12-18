@@ -1,3 +1,6 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
 .yellow_highlighter_div {
   background-color: #bf932c;
   width: 0.2rem;
@@ -19,18 +22,35 @@
 .search_load {
   height: auto;
   width: 36.8rem;
+  font-size: small;
 }
 
 .horizontal_scrolling::-webkit-scrollbar {
   display: none;
 }
 
-@media (max-width: 280px) {
+@media (max-width: 281px) {
   .search_load {
     width: 11.8rem;
   }
 }
-@media (max-width: 376px) {
+
+@media (min-width: 281px) and (max-width: 350px) {
+  .search_load {
+    width: 13.5rem;
+  }
+}
+@media (min-width: 351px) and (max-width: 421px) {
+  .search_load {
+    width: 18.5rem;
+  }
+}
+@media (min-width: 421px) and (max-width: 500px) {
+  .search_load {
+    width: 22rem;
+  }
+}
+/* @media (max-width: 376px) {
   .search_load {
     width: 17.5rem;
   }
@@ -49,4 +69,4 @@
   .search_load {
     width: 20rem;
   }
-}
+} */

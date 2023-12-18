@@ -2,6 +2,7 @@ import { ClassNames } from "@emotion/react";
 import React from "react";
 import { useState, useEffect } from "react";
 import "./slider.css";
+import "./Movies.css";
 
 export const ImgSlider = ({ top_5_movies }) => {
   let [img_index, set_img_index] = useState(0);

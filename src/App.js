@@ -9,8 +9,11 @@ import { Watchlist } from "./components/Watchlist";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Typography } from "@mui/material";
 import { Filters_render } from "./components/filters_render";
+import { FetchingDetails } from "./components/fetchingDetails";
+import "./components/Movies.css";
 
 const App = () => {
+  const [isfetching, setfetching] = useState(false);
   const [movie_names, set_movie_names] = useState([]);
   const [movie_ser_data, set_movie_ser_data] = useState([]);
   //////
@@ -74,136 +77,143 @@ const App = () => {
   }, []);
 
   async function performfetch() {
-    const res = await axios.get(
-      "https://imdb-top-100-movies.p.rapidapi.com",
-      options_movies
-    );
-    const series_res = await axios.get(
-      "https://imdb-top-100-movies.p.rapidapi.com/series",
-      option_series
-    );
+    try {
+      setfetching(true);
+      const res = await axios.get(
+        "https://imdb-top-100-movies.p.rapidapi.com",
+        options_movies
+      );
+      const series_res = await axios.get(
+        "https://imdb-top-100-movies.p.rapidapi.com/series",
+        option_series
+      );
 
-    //// all movie and series data
-    // const mov_ser_data = [...res.data, ...series_res.data];
-    const mov_data = res.data.map((movie) => {
-      return { title: movie.title.toLowerCase(), link: movie.imdb_link };
-    });
-    const ser_data = series_res.data.map((movie) => {
-      return { title: movie.title.toLowerCase(), link: movie.imdb_link };
-    });
-    const mov_ser_data = [...mov_data, ...ser_data];
-    set_movie_ser_data(mov_ser_data);
-    /// only names
-    const movie_names = res.data.map((movie) => {
-      return movie.title.toLowerCase();
-    });
-    const series_names = series_res.data.map((movie) => {
-      return movie.title.toLowerCase();
-    });
-    const mov_ser_names = [...movie_names, ...series_names];
-    set_movie_names(mov_ser_names);
-    const mov_ser_all = [...res.data, ...series_res.data];
-    //// romance
-    const romance_movies_series = mov_ser_all.filter((movie, index) => {
-      if (movie.genre.includes("Romance")) {
-        return movie;
-      }
-    });
+      //// all movie and series data
+      // const mov_ser_data = [...res.data, ...series_res.data];
+      const mov_data = res.data.map((movie) => {
+        return { title: movie.title.toLowerCase(), link: movie.imdb_link };
+      });
+      const ser_data = series_res.data.map((movie) => {
+        return { title: movie.title.toLowerCase(), link: movie.imdb_link };
+      });
+      const mov_ser_data = [...mov_data, ...ser_data];
+      set_movie_ser_data(mov_ser_data);
+      /// only names
+      const movie_names = res.data.map((movie) => {
+        return movie.title.toLowerCase();
+      });
+      const series_names = series_res.data.map((movie) => {
+        return movie.title.toLowerCase();
+      });
+      const mov_ser_names = [...movie_names, ...series_names];
+      set_movie_names(mov_ser_names);
+      const mov_ser_all = [...res.data, ...series_res.data];
+      //// romance
+      const romance_movies_series = mov_ser_all.filter((movie, index) => {
+        if (movie.genre.includes("Romance")) {
+          return movie;
+        }
+      });
 
-    const romance_movies = res.data.filter((movie) => {
-      if (movie.genre.includes("Romance")) {
-        return movie;
-      }
-    });
-    const romance_series = series_res.data.filter((movie) => {
-      if (movie.genre.includes("Romance")) {
-        return movie;
-      }
-    });
-    set_top_romance_movies_and_series(romance_movies_series);
-    set_top_romance_movies(romance_movies);
-    set_top_romance_series(romance_series);
+      const romance_movies = res.data.filter((movie) => {
+        if (movie.genre.includes("Romance")) {
+          return movie;
+        }
+      });
+      const romance_series = series_res.data.filter((movie) => {
+        if (movie.genre.includes("Romance")) {
+          return movie;
+        }
+      });
+      set_top_romance_movies_and_series(romance_movies_series);
+      set_top_romance_movies(romance_movies);
+      set_top_romance_series(romance_series);
 
-    /// Action
-    const action_mov_ser = mov_ser_all.filter((movie) => {
-      if (movie.genre.includes("Action")) {
-        return movie;
-      }
-    });
-    const action_movies = res.data.filter((movie) => {
-      if (movie.genre.includes("Action")) {
-        return movie;
-      }
-    });
-    const action_series = series_res.data.filter((movie) => {
-      if (movie.genre.includes("Action")) {
-        return movie;
-      }
-    });
+      /// Action
+      const action_mov_ser = mov_ser_all.filter((movie) => {
+        if (movie.genre.includes("Action")) {
+          return movie;
+        }
+      });
+      const action_movies = res.data.filter((movie) => {
+        if (movie.genre.includes("Action")) {
+          return movie;
+        }
+      });
+      const action_series = series_res.data.filter((movie) => {
+        if (movie.genre.includes("Action")) {
+          return movie;
+        }
+      });
 
-    set_top_action_movies_and_series(action_mov_ser);
-    set_top_action_movies(action_movies);
-    set_top_action_series(action_series);
+      set_top_action_movies_and_series(action_mov_ser);
+      set_top_action_movies(action_movies);
+      set_top_action_series(action_series);
 
-    /// Drama
+      /// Drama
 
-    const drama_mov_ser = mov_ser_all.filter((movie) => {
-      return movie.genre.includes("Drama");
-    });
-    const drama_mov = res.data.filter((movie) => {
-      return movie.genre.includes("Drama");
-    });
-    const drama_ser = series_res.data.filter((movie) => {
-      return movie.genre.includes("Drama");
-    });
-    set_top_drama_movies_and_series(drama_mov_ser);
-    set_top_drama_movies(drama_mov);
-    set_top_drama_series(drama_ser);
+      const drama_mov_ser = mov_ser_all.filter((movie) => {
+        return movie.genre.includes("Drama");
+      });
+      const drama_mov = res.data.filter((movie) => {
+        return movie.genre.includes("Drama");
+      });
+      const drama_ser = series_res.data.filter((movie) => {
+        return movie.genre.includes("Drama");
+      });
+      set_top_drama_movies_and_series(drama_mov_ser);
+      set_top_drama_movies(drama_mov);
+      set_top_drama_series(drama_ser);
 
-    /// Comedy
-    const comedy_mov_ser = mov_ser_all.filter((movie) => {
-      return movie.genre.includes("Comedy");
-    });
-    const comedy_movies = res.data.filter((movie) => {
-      return movie.genre.includes("Comedy");
-    });
-    const comedy_series = series_res.data.filter((movie) => {
-      return movie.genre.includes("Comedy");
-    });
+      /// Comedy
+      const comedy_mov_ser = mov_ser_all.filter((movie) => {
+        return movie.genre.includes("Comedy");
+      });
+      const comedy_movies = res.data.filter((movie) => {
+        return movie.genre.includes("Comedy");
+      });
+      const comedy_series = series_res.data.filter((movie) => {
+        return movie.genre.includes("Comedy");
+      });
 
-    set_top_comedy_movies_and_series(comedy_mov_ser);
-    set_top_comedy_movies(comedy_movies);
-    set_top_comedy_series(comedy_series);
+      set_top_comedy_movies_and_series(comedy_mov_ser);
+      set_top_comedy_movies(comedy_movies);
+      set_top_comedy_series(comedy_series);
 
-    /// Crime
-    const crime_mov_ser = mov_ser_all.filter((movie) => {
-      return movie.genre.includes("Crime");
-    });
-    const crime_movies = res.data.filter((movie) => {
-      return movie.genre.includes("Crime");
-    });
-    const crime_series = series_res.data.filter((movie) => {
-      return movie.genre.includes("Crime");
-    });
+      /// Crime
+      const crime_mov_ser = mov_ser_all.filter((movie) => {
+        return movie.genre.includes("Crime");
+      });
+      const crime_movies = res.data.filter((movie) => {
+        return movie.genre.includes("Crime");
+      });
+      const crime_series = series_res.data.filter((movie) => {
+        return movie.genre.includes("Crime");
+      });
 
-    set_top_crime_movies_and_series(crime_mov_ser);
-    set_top_crime_movies(crime_movies);
-    set_top_crime_series(crime_series);
+      set_top_crime_movies_and_series(crime_mov_ser);
+      set_top_crime_movies(crime_movies);
+      set_top_crime_series(crime_series);
 
-    // if (res.data[0].genre.some((genre) => ["Drama", "Crime"].includes(genre))) {
-    //   console.log("Drama or Crime spotted");
-    // } else {
-    //   console.log("something not spotted");
-    // }
-    // console.log(res.data[0].genre);
-    // or  res.data.filter((movies)=>{return movies.rank<=20})
-    const top_5 = res.data.slice(0, 5);
-    const top20 = res.data.slice(0, 20);
-    const top20_series = series_res.data.slice(0, 20);
+      // if (res.data[0].genre.some((genre) => ["Drama", "Crime"].includes(genre))) {
+      //   console.log("Drama or Crime spotted");
+      // } else {
+      //   console.log("something not spotted");
+      // }
+      // console.log(res.data[0].genre);
+      // or  res.data.filter((movies)=>{return movies.rank<=20})
+      const top_5 = res.data.slice(0, 5);
+      const top20 = res.data.slice(0, 20);
+      const top20_series = series_res.data.slice(0, 20);
 
-    set_top_5_movies(top_5);
-    settop_20_movies(top20);
-    settop_20_series(top20_series);
+      set_top_5_movies(top_5);
+      settop_20_movies(top20);
+      settop_20_series(top20_series);
+    } catch (e) {
+      console.log("API error");
+    } finally {
+      setfetching(false);
+    }
   }
   ///////////////   object prop   ////////////////
 
@@ -424,7 +434,9 @@ const App = () => {
         is_Crime_checked={is_Crime_checked}
         set_is_Crime_checked={set_is_Crime_checked}
       />
-      {filters_content ? (
+      {isfetching ? (
+        <FetchingDetails />
+      ) : filters_content ? (
         filters_content
       ) : (
         <div>

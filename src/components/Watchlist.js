@@ -3,6 +3,7 @@ import { Box, Typography, Stack, Button } from "@mui/material";
 import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import { Future_signin } from "./future_signin";
 import { useState } from "react";
+import "./Movies.css";
 export const Watchlist = () => {
   const [isclicked, set_isclicked] = useState(false);
   return (
