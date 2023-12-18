@@ -10,10 +10,12 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Typography } from "@mui/material";
 import { Filters_render } from "./components/filters_render";
 import { FetchingDetails } from "./components/fetchingDetails";
+import { Serverdown } from "./components/Serverdown";
 import "./components/Movies.css";
 
 const App = () => {
   const [isfetching, setfetching] = useState(false);
+  const [isserverdown, setserverdown] = useState(false);
   const [movie_names, set_movie_names] = useState([]);
   const [movie_ser_data, set_movie_ser_data] = useState([]);
   //////
@@ -80,7 +82,7 @@ const App = () => {
     try {
       setfetching(true);
       const res = await axios.get(
-        "https://imdb-top-100-movies.p.rapidapi.com",
+        "https://imdb-top-100-movies.p.rapidapi.com/",
         options_movies
       );
       const series_res = await axios.get(
@@ -209,7 +211,9 @@ const App = () => {
       set_top_5_movies(top_5);
       settop_20_movies(top20);
       settop_20_series(top20_series);
+      setserverdown(false);
     } catch (e) {
+      setserverdown(true);
       console.log("API error");
     } finally {
       setfetching(false);
@@ -434,18 +438,22 @@ const App = () => {
         is_Crime_checked={is_Crime_checked}
         set_is_Crime_checked={set_is_Crime_checked}
       />
-      {isfetching ? (
-        <FetchingDetails />
-      ) : filters_content ? (
-        filters_content
+      {!isserverdown ? (
+        isfetching ? (
+          <FetchingDetails />
+        ) : filters_content ? (
+          filters_content
+        ) : (
+          <div>
+            <ImgSlider top_5_movies={top_5_movies} />
+            <Movies
+              top_20_movies={top_20_movies}
+              top_20_series={top_20_series}
+            />{" "}
+          </div>
+        )
       ) : (
-        <div>
-          <ImgSlider top_5_movies={top_5_movies} />
-          <Movies
-            top_20_movies={top_20_movies}
-            top_20_series={top_20_series}
-          />{" "}
-        </div>
+        <Serverdown />
       )}
 
       {watchlist_content}
